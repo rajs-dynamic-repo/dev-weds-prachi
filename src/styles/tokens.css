@@ -1,0 +1,23 @@
+:root {
+  --cream: #f3ebdd;
+  --cream-deep: #e7dccb;
+  --paper: #fbf6ee;
+  --wine: #6e2433;
+  --wine-deep: #541b27;
+  --wine-soft: #7c3142;
+  --ink: #3a1c22;
+  --gold: #c4a574;
+  --gold-deep: #a68456;
+  --gold-soft: #e4d0a8;
+  --line: rgba(166, 132, 86, 0.45);
+  --serif: "Cormorant Garamond", "Times New Roman", serif;
+  --sans: Outfit, "Segoe UI", sans-serif;
+  --shadow: 0 24px 60px rgba(80, 36, 28, 0.12);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ease: linear;
+  }
+}
