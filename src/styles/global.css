@@ -75,6 +75,16 @@ button {
   color: var(--paper);
 }
 
+.band--earth {
+  background:
+    radial-gradient(ellipse at 50% 0%, #6d5344 0%, #4a3428 48%, #3c2a22 100%);
+  color: var(--paper);
+}
+
+.band--earth .timeline__node {
+  background: transparent;
+}
+
 .eyebrow {
   margin: 0 0 12px;
   font-family: var(--sans);
@@ -190,20 +200,6 @@ button {
 .field textarea {
   resize: vertical;
   min-height: 88px;
-}
-
-.form__success {
-  margin: 12px 0;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 30px;
-  text-align: center;
-  line-height: 1.35;
-}
-
-.form__error {
-  color: #8c2f2f;
-  font-size: 14px;
 }
 
 .snow {
@@ -364,9 +360,9 @@ button {
 .choice__name {
   margin: 14px 0 20px;
   font-family: var(--serif);
-  font-size: clamp(36px, 4vw, 48px);
+  font-size: clamp(28px, 3vw, 40px);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.05;
   color: var(--wine);
 }
 
@@ -410,21 +406,22 @@ button {
 .hero__stage {
   position: relative;
   z-index: 2;
-  width: min(980px, calc(100% - 32px));
+  width: min(1100px, calc(100% - 40px));
   text-align: center;
 }
 
 .hero__names {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 0.18em;
+  gap: 0.06em;
   margin: 0;
   font-family: var(--serif);
   font-weight: 500;
-  font-size: clamp(64px, 11vw, 140px);
-  line-height: 0.88;
-  letter-spacing: -0.03em;
+  font-size: clamp(40px, 5.6vw, 78px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
 }
 
 .hero__names em,
@@ -432,7 +429,8 @@ button {
 .footer__names em {
   font-style: italic;
   font-weight: 500;
-  font-size: 0.62em;
+  font-size: 0.42em;
+  line-height: 1;
   color: var(--gold-deep);
 }
 
@@ -606,12 +604,15 @@ button {
 .keepsake__label,
 .keepsake__foot {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
   justify-content: center;
   margin: 0;
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+  text-align: center;
   text-transform: uppercase;
   color: var(--gold-deep);
 }
@@ -620,15 +621,86 @@ button {
   margin-top: 14px;
 }
 
+.scratch-stage {
+  position: relative;
+  margin-top: 16px;
+}
+
 .scratch {
   position: relative;
   min-height: 230px;
-  margin-top: 16px;
   overflow: hidden;
-  background: #5c1c2a;
+  background: #8c3e4e;
   border-radius: 16px;
   touch-action: none;
   user-select: none;
+}
+
+.poppers {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  animation: poppers-fade 1.35s ease forwards;
+}
+
+.popper {
+  position: absolute;
+  top: 50%;
+  width: 64px;
+  height: 36px;
+}
+
+.popper--left {
+  left: -18px;
+  transform: translateY(-50%);
+}
+
+.popper--right {
+  right: -18px;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+.popper__bit {
+  position: absolute;
+  left: 2px;
+  top: 10px;
+  width: var(--s);
+  height: calc(var(--s) * 1.4);
+  background: var(--c);
+  border-radius: 1px;
+  opacity: 0;
+  animation: popper-burst 0.95s var(--ease) forwards;
+  animation-delay: var(--d);
+}
+
+.popper__bit.is-round {
+  height: var(--s);
+  border-radius: 50%;
+}
+
+@keyframes popper-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+  }
+}
+
+@keyframes poppers-fade {
+  0%,
+  68% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .scratch__secret {
@@ -638,8 +710,8 @@ button {
   align-content: center;
   justify-items: center;
   background:
-    radial-gradient(circle at 50% 40%, rgba(196, 165, 116, 0.2), transparent 55%),
-    #5c1c2a;
+    radial-gradient(circle at 50% 40%, rgba(196, 165, 116, 0.18), transparent 55%),
+    #8c3e4e;
 }
 
 .scratch__day,
@@ -669,7 +741,7 @@ button {
 .scratch canvas.is-done {
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.6s var(--ease);
+  transition: opacity 0.2s var(--ease);
 }
 
 .reveal-date {
@@ -754,14 +826,11 @@ button {
 
 .way {
   align-self: flex-start;
+  display: inline-flex;
   margin-top: auto;
   padding-top: 16px;
-  font-family: var(--serif);
-  font-size: 18px;
-  font-style: italic;
-  color: var(--paper);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(251, 246, 238, 0.7);
+  color: var(--gold-soft);
+  line-height: 0;
 }
 
 .events__address {
@@ -853,28 +922,88 @@ button {
   padding-bottom: 2px;
 }
 
-.wish-form,
-.wish-list,
-.rsvp {
-  width: min(680px, 100%);
+.wishes {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  width: min(980px, 100%);
   margin: 36px auto 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
 }
 
-.wish-form,
-.rsvp {
-  padding: 32px 32px 28px;
+.wish-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 12px 18px;
+  background: transparent;
+  text-align: center;
+}
+
+.wish-form .field {
+  width: min(100%, 360px);
+  align-items: center;
+  text-align: center;
+}
+
+.wish-form .field input,
+.wish-form .field textarea {
+  text-align: center;
+}
+
+.wish-board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 22px 8px 18px 22px;
   background: var(--paper);
   border-radius: 24px;
   box-shadow: var(--shadow);
 }
 
-.wish-list {
-  margin-top: 28px;
+.wish-board__title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0 14px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--wine);
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.wish-board__title svg {
+  flex: 0 0 auto;
+}
+
+.wish-scroll {
+  max-height: 32rem;
+  margin-top: 4px;
+  padding-right: 12px;
+  overflow-y: auto;
+  scrollbar-color: var(--gold) transparent;
+  scrollbar-width: thin;
+}
+
+.wish-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wish-scroll::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 8px;
 }
 
 .wish-empty {
-  margin: 0;
-  text-align: center;
+  margin: 28px 8px 0 0;
   font-family: var(--serif);
   font-size: 22px;
   font-style: italic;
@@ -882,57 +1011,28 @@ button {
 }
 
 .wish {
-  padding: 22px 0;
-  text-align: center;
-  border-top: 1px solid var(--line);
+  padding: 16px 8px 16px 0;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
 }
 
 .wish p {
   margin: 0;
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 20px;
   font-style: italic;
-  line-height: 1.4;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink);
 }
 
 .wish cite {
   display: block;
-  margin-top: 8px;
+  margin-top: 10px;
+  font-family: var(--serif);
+  font-size: 16px;
   font-style: normal;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold-deep);
-}
-
-.rsvp__side {
-  margin: 0 0 18px;
-  text-align: center;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-style: italic;
-}
-
-.pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.pill {
-  padding: 10px 16px;
   color: var(--wine);
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-family: var(--serif);
-  font-size: 18px;
-}
-
-.pill[aria-pressed='true'] {
-  color: var(--paper);
-  background: var(--wine);
-  border-color: var(--wine);
 }
 
 .notes {
@@ -1002,13 +1102,30 @@ button {
 }
 
 .footer {
-  padding: 72px 20px 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 72px 36px 96px;
   text-align: center;
   background: #2a1418;
   color: var(--paper);
 }
 
-.footer svg {
+.footer__copy {
+  flex: 1 1 auto;
+  max-width: 760px;
+}
+
+.footer__mark {
+  display: block;
+  flex: 0 0 96px;
+  width: 96px;
+  height: auto;
+  margin: 0;
+}
+
+.footer svg.footer__flower {
   display: block;
   width: 46px;
   margin: 0 auto 16px;
@@ -1017,8 +1134,9 @@ button {
 .footer__names {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(42px, 6vw, 68px);
+  font-size: clamp(32px, 4.4vw, 56px);
   font-weight: 500;
+  line-height: 1.05;
 }
 
 .footer__names em {
@@ -1034,38 +1152,21 @@ button {
   color: var(--gold-soft);
 }
 
-.music {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  padding: 0;
-  color: var(--wine);
-  background: var(--paper);
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(80, 36, 28, 0.16);
-}
+@media (max-width: 720px) {
+  .footer {
+    flex-wrap: wrap;
+    padding: 64px 20px 88px;
+  }
 
-.music__flower {
-  width: 26px;
-  height: 26px;
-}
+  .footer__copy {
+    flex: 1 1 100%;
+    order: -1;
+  }
 
-.music[data-playing='true'] .music__flower {
-  animation: turn 16s linear infinite;
-}
-
-.music__slash {
-  position: absolute;
-  width: 22px;
-  height: 1.5px;
-  background: var(--wine);
-  transform: rotate(-42deg);
+  .footer__mark {
+    flex-basis: 78px;
+    width: 78px;
+  }
 }
 
 @keyframes rise {
@@ -1089,12 +1190,6 @@ button {
   }
 }
 
-@keyframes turn {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (max-width: 900px) {
   .events,
   .notes {
@@ -1111,6 +1206,10 @@ button {
 }
 
 @media (max-width: 720px) {
+  #celebrations .lede {
+    padding-bottom: 15px;
+  }
+
   .band {
     padding: 80px 16px;
   }
@@ -1145,19 +1244,21 @@ button {
   }
 
   .hero__names {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.04em;
-    font-size: clamp(64px, 18vw, 92px);
+    font-size: clamp(34px, 9vw, 48px);
   }
 
   .ticks {
     grid-template-columns: repeat(2, minmax(0, 140px));
   }
 
+  .wishes {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
   .invite,
   .wish-form,
-  .rsvp {
+  .wish-board {
     padding-right: 18px;
     padding-left: 18px;
   }
@@ -1180,7 +1281,8 @@ button {
 
   .tick__num,
   .hero__hint i,
-  .music__flower {
+  .poppers,
+  .popper__bit {
     animation: none;
   }
 }

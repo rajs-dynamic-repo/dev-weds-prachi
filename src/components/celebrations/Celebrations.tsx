@@ -11,9 +11,9 @@ function Clock() {
   )
 }
 
-function Pin() {
+function Pin({ size = 15 }: { size?: number }) {
   return (
-    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
       <path
         d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z"
         fill="none"
@@ -27,7 +27,7 @@ function Pin() {
 
 export function Celebrations() {
   return (
-    <section className="band band--wine" id="celebrations">
+    <section className="band band--earth" id="celebrations">
       <SectionHeading
         tone="wine"
         eyebrow="Gather with us"
@@ -38,7 +38,7 @@ export function Celebrations() {
         <span className="timeline__line" />
         {wedding.events.map((event) => (
           <span className="timeline__node" key={event.index}>
-            <FlowerMark tone="wine" />
+              <FlowerMark tone="earth" />
           </span>
         ))}
       </div>
@@ -55,8 +55,14 @@ export function Celebrations() {
               <Pin /> {event.place}
             </p>
             {wedding.venue.mapUrl ? (
-              <a className="way" href={wedding.venue.mapUrl} target="_blank" rel="noreferrer">
-                Find your way
+              <a
+                className="way"
+                href={wedding.venue.mapUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open the map"
+              >
+                <Pin size={26} />
               </a>
             ) : null}
           </article>

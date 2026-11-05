@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import { wedding } from '../../content/wedding'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { SectionHeading } from '../layout/SectionHeading'
+import { PartyPoppers } from '../ornament/PartyPoppers'
 
 function paint(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d')
@@ -45,6 +47,7 @@ export function DateReveal() {
   const scratched = useRef(false)
   const moves = useRef(0)
   const [done, setDone] = useState(false)
+  const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -88,7 +91,7 @@ export function DateReveal() {
   const sample = () => {
     const canvas = canvasRef.current
     const ctx = ctxRef.current
-    if (!canvas || !ctx) return
+    if (!canvas || !ctx || scratched.current) return
     const { data, width, height } = ctx.getImageData(0, 0, canvas.width, canvas.height)
     let clear = 0
     let total = 0
@@ -97,13 +100,13 @@ export function DateReveal() {
       total += 1
       if (data[index] < 28) clear += 1
     }
-    if (total > 0 && clear / total > 0.56) finish()
+    if (total > 0 && clear / total > 0.5) finish()
   }
 
   const erase = (event: ReactPointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     const ctx = ctxRef.current
-    if (!canvas || !ctx || done) return
+    if (!canvas || !ctx || done || scratched.current) return
     const rect = canvas.getBoundingClientRect()
     const x = event.clientX - rect.left
     const y = event.clientY - rect.top
@@ -130,15 +133,12 @@ export function DateReveal() {
 
   return (
     <section className="band band--cream" id="date">
-      <SectionHeading
-        eyebrow="Mark your calendar"
-        title="A day to remember"
-        lede="Scratch the card to discover the day we celebrate."
-      />
+      <SectionHeading eyebrow="Mark your calendar" title="A day to remember" />
       <div className="keepsake" data-reveal="">
         <p className="keepsake__label">
-          <CalendarIcon /> A secret tucked inside
+          <CalendarIcon /> Scratch the card to discover the day we celebrate.
         </p>
+        <div className="scratch-stage">
         <div className="scratch" data-lenis-prevent="">
           <div className="scratch__secret">
             <p className="eyebrow">Save the date</p>
@@ -162,18 +162,19 @@ export function DateReveal() {
             onPointerUp={() => {
               drawing.current = false
               lastRef.current = null
+              sample()
             }}
             onPointerCancel={() => {
               drawing.current = false
               lastRef.current = null
+              sample()
             }}
           />
         </div>
+        {done && !reduced ? <PartyPoppers /> : null}
+        </div>
         <p className="keepsake__foot">A little keepsake for you</p>
       </div>
-      <button type="button" className="button button--ghost reveal-date" onClick={finish}>
-        Scratch to reveal the date
-      </button>
     </section>
   )
 }

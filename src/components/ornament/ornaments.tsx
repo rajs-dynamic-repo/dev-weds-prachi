@@ -1,9 +1,10 @@
-type MarkTone = 'paper' | 'wine' | 'dark'
+type MarkTone = 'paper' | 'wine' | 'dark' | 'earth'
 
 const markTones: Record<MarkTone, { fill: string; stroke: string }> = {
   paper: { fill: '#FBF6EE', stroke: '#C4A574' },
   wine: { fill: '#6E2433', stroke: '#E4D0A8' },
   dark: { fill: '#2A1418', stroke: '#C4A574' },
+  earth: { fill: 'none', stroke: '#E4D0A8' },
 }
 
 function petals(
@@ -259,6 +260,48 @@ export function Garland({ className }: { className?: string }) {
         stroke="#C4A574"
         strokeWidth="1.2"
       />
+    </svg>
+  )
+}
+
+export function Swastik({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="54" fill="none" stroke="#C4A574" strokeWidth="1" />
+      <circle cx="60" cy="60" r="46" fill="none" stroke="#E4D0A8" strokeWidth="0.6" />
+      <g
+        fill="none"
+        stroke="#E4D0A8"
+        strokeWidth="3.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M60 52 V24 H80" />
+        <path d="M68 60 H96 V80" />
+        <path d="M60 68 V96 H40" />
+        <path d="M52 60 H24 V40" />
+      </g>
+      <circle cx="60" cy="60" r="3.2" fill="#C4A574" />
+    </svg>
+  )
+}
+
+export function Kalash({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 140" aria-hidden="true">
+      <circle cx="60" cy="70" r="54" fill="none" stroke="#C4A574" strokeWidth="1" />
+      <g fill="none" stroke="#E4D0A8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M60 28 C52 16 40 18 34 12" />
+        <path d="M60 28 C68 16 80 18 86 12" />
+        <path d="M60 30 C56 18 62 14 60 8" />
+        <path d="M60 26 C48 20 46 30 52 34" />
+        <path d="M60 26 C72 20 74 30 68 34" />
+        <ellipse cx="60" cy="38" rx="9" ry="6" />
+        <path d="M51 44 H69 L73 54 H47 Z" />
+        <path d="M47 54 C34 60 30 78 36 94 C42 108 78 108 84 94 C90 78 86 60 73 54" />
+        <path d="M40 96 H80" />
+        <path d="M44 102 H76" />
+      </g>
     </svg>
   )
 }

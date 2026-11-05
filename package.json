@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "audio": "node scripts/make-audio.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "gsap": "^3.13.0",

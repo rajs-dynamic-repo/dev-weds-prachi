@@ -129,8 +129,6 @@ export function Hero({ reduced }: { reduced: boolean }) {
         </h1>
         <div className="hero__meta">
           <p>Together with their families</p>
-          <p className="hero__date">{wedding.dateDisplay}</p>
-          <p className="hero__city">{wedding.city}</p>
         </div>
       </div>
       {reduced ? null : (

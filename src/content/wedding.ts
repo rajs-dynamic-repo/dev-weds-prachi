@@ -1,7 +1,6 @@
 /**
  * Edit this file to personalise the invitation.
  * The date drives the countdown, the scratch card, and the footer.
- * Leave rsvpEndpoint empty to open a mail draft instead.
  * Leave instagram empty until you have a handle.
  */
 
@@ -20,29 +19,24 @@ export type Note = {
   text: string
 }
 
-const dateISO = '2027-02-14T18:00:00+05:30'
+const dateISO = '2026-12-02T18:00:00+05:30'
 const when = new Date(dateISO)
 const zone = 'Asia/Kolkata'
 
-const dateDisplay = new Intl.DateTimeFormat('en-GB', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  timeZone: zone,
-}).format(when)
+const dateDisplay = '2nd Dec 2026'
 
 export const wedding = {
   groom: {
-    name: 'Dev',
+    name: 'Dev Ashish Shukla',
     sideLabel: "Groom's side",
-    familyLabel: "Dev's family",
-    parents: ['Father of the Groom', 'Mother of the Groom'],
+    familyLabel: "Dev Ashish Shukla's family",
+    parents: ['Yogesh Kumar Shukla', 'Sushma Shukla'],
   },
   bride: {
-    name: 'Prachi',
+    name: 'Prachi Shukla',
     sideLabel: "Bride's side",
-    familyLabel: "Prachi's family",
-    parents: ['Father of the Bride', 'Mother of the Bride'],
+    familyLabel: "Prachi Shukla's family",
+    parents: ['Pradeep Kumar Shukla', 'Anita Shukla'],
   },
   dateISO,
   dateDisplay,
@@ -51,44 +45,44 @@ export const wedding = {
     weekday: 'long',
     timeZone: zone,
   }).format(when),
-  city: 'Your City',
+  city: 'Kanpur',
   venue: {
-    name: 'The Wedding Venue',
-    address: 'Address line, Your City',
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=The+Wedding+Venue',
+    name: 'MVR Grand Hotel',
+    address: 'MVR Grand Hotel, Juhi Kalan, Saket Nagar, Kanpur',
+    mapUrl: 'https://maps.app.goo.gl/iPkiN8Xg1a4tAmi59',
   },
   invitation:
-    'With joyful hearts, the families of Dev and Prachi request the pleasure of your company as they begin their life together.',
+    'With joyful hearts, the families of Dev Ashish Shukla and Prachi Shukla request the pleasure of your company as they begin their life together.',
   blessing:
     'Two families, one joyful gathering. Your presence and blessings will make our celebration complete.',
   celebrationLede: 'Three gatherings, one beautiful beginning.',
   events: [
     {
       index: '01',
-      title: 'Haldi',
-      description: 'A morning of turmeric, laughter, and blessings.',
-      time: '12:00 PM – 3:00 PM',
-      place: 'The Wedding Venue',
+      title: 'Variksha/Tilak',
+      description: "Tilak Isn't just a ritual, It's a promise of love forever",
+      time: '3:00 PM – 5:00 PM',
+      place: 'MVR Grand Hotel',
     },
     {
       index: '02',
-      title: 'Ring Ceremony',
+      title: 'Shubh Vivah/Varmala',
       description: 'An evening to celebrate the promise of forever.',
       time: '7:00 PM – 10:00 PM',
-      place: 'The Wedding Venue',
+      place: 'MVR Grand Hotel',
     },
     {
       index: '03',
-      title: 'Varmala & Reception',
+      title: 'Vadhu Aagman',
       description: 'Join us as we begin our next chapter together.',
-      time: '6:00 PM – 10:00 PM',
-      place: 'The Wedding Venue',
+      time: '9:00 AM',
+      place: 'MVR Grand Hotel',
     },
   ] satisfies Celebration[],
   notes: [
     {
       title: 'Attire',
-      text: 'Festive Indian wear. Maroon, ivory, gold, and soft pastels will look beautiful in the gathering.',
+      text: 'Festive Indian Wear. Any best that suits your charming personality : )',
     },
     {
       title: 'The hour',
@@ -96,17 +90,13 @@ export const wedding = {
     },
     {
       title: 'The venue',
-      text: 'The Wedding Venue, Your City. Each celebration carries a map link once you add the address.',
+      text: 'MVR Grand Hotel, Juhi Kalan, Saket Nagar, Kanpur. Each celebration carries a map link.',
     },
     {
       title: 'Your presence',
       text: 'It is the gift we hope for. If you wish to send a blessing, leave a wish on this page.',
     },
   ] satisfies Note[],
-  /** Formspree or any endpoint that accepts a JSON POST. */
-  rsvpEndpoint: '',
-  /** Used when rsvpEndpoint is empty. The guest's mail app opens a draft. */
-  rsvpEmail: '',
   instagram: '',
   hashtag: 'DevWedsPrachi',
 }

@@ -5,7 +5,6 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { gsap } from '../../lib/gsap'
 import { CornerFlowers, FlowerMark, Garland } from '../ornament/ornaments'
 import { Snowfield } from '../snow/Snowfield'
-import { useMusic } from '../music/MusicPlayer'
 
 type FamilySidePromptProps = {
   onBegin: (side: Side) => void
@@ -27,7 +26,6 @@ export function FamilySidePrompt({ onBegin, onDone }: FamilySidePromptProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const leaving = useRef(false)
   const reduced = usePrefersReducedMotion()
-  const music = useMusic()
 
   useEffect(() => {
     if (reduced) return
@@ -58,7 +56,6 @@ export function FamilySidePrompt({ onBegin, onDone }: FamilySidePromptProps) {
   const choose = (side: Side) => {
     if (leaving.current) return
     leaving.current = true
-    music.play()
     onBegin(side)
     const root = rootRef.current
     const card = cardRef.current
