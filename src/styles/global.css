@@ -998,6 +998,15 @@ button {
   text-align: center;
 }
 
+.wish-note {
+  margin: 12px 0 0;
+  max-width: 36ch;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--gold-deep);
+}
+
 .wish-board {
   display: flex;
   flex-direction: column;

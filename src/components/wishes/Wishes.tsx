@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { SectionHeading } from '../layout/SectionHeading'
 import { PartyPoppers } from '../ornament/PartyPoppers'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { fetchSharedWishes, publishSharedWish, wishesAreShared } from '../../lib/guestbook'
 import { readWishes, saveWishes } from '../../lib/storage'
 import type { Wish } from '../../lib/storage'
 
@@ -29,29 +30,65 @@ function loadWishes() {
 }
 
 export function Wishes() {
-  const [wishes, setWishes] = useState<Wish[]>(() => loadWishes())
+  const shared = wishesAreShared()
+  const [wishes, setWishes] = useState<Wish[]>(() => (shared ? [] : loadWishes()))
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [burst, setBurst] = useState(0)
+  const [sending, setSending] = useState(false)
+  const [note, setNote] = useState('')
   const reduced = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (!shared) return
+    let ignore = false
+    fetchSharedWishes()
+      .then((list) => {
+        if (!ignore) setWishes(list)
+      })
+      .catch(() => {
+        if (!ignore) setNote('The wish list could not be loaded. Please try again in a moment.')
+      })
+    return () => {
+      ignore = true
+    }
+  }, [shared])
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const nextName = name.trim()
-    const nextMessage = message.trim()
-    if (!nextName || !nextMessage) return
-    const next: Wish = {
-      id: crypto.randomUUID(),
-      name: nextName.slice(0, 60),
-      message: nextMessage.slice(0, 280),
-      createdAt: new Date().toISOString(),
+    const nextName = name.trim().slice(0, 60)
+    const nextMessage = message.trim().slice(0, 280)
+    if (!nextName || !nextMessage || sending) return
+
+    if (!shared) {
+      const next: Wish = {
+        id: crypto.randomUUID(),
+        name: nextName,
+        message: nextMessage,
+        createdAt: new Date().toISOString(),
+      }
+      const updated = [next, ...wishes].slice(0, 80)
+      setWishes(updated)
+      saveWishes(updated)
+      setName('')
+      setMessage('')
+      setBurst((count) => count + 1)
+      return
     }
-    const updated = [next, ...wishes].slice(0, 80)
-    setWishes(updated)
-    saveWishes(updated)
-    setName('')
-    setMessage('')
-    setBurst((count) => count + 1)
+
+    setSending(true)
+    setNote('')
+    publishSharedWish(nextName, nextMessage)
+      .then((saved) => {
+        setWishes((current) => [saved, ...current.filter((wish) => wish.id !== saved.id)].slice(0, 80))
+        setName('')
+        setMessage('')
+        setBurst((count) => count + 1)
+      })
+      .catch(() => {
+        setNote('The blessing could not be sent. Please try again.')
+      })
+      .finally(() => setSending(false))
   }
 
   return (
@@ -59,7 +96,11 @@ export function Wishes() {
       <SectionHeading
         eyebrow="For the couple"
         title="Leave a wish"
-        lede="A blessing kept on this device, until the day we read them together."
+        lede={
+          shared
+            ? 'A blessing for the couple, read by everyone who opens this page.'
+            : 'A blessing kept on this device, until the day we read them together.'
+        }
       />
       <div className="wishes" data-reveal="">
         {burst > 0 && !reduced ? <PartyPoppers key={burst} /> : null}
@@ -86,9 +127,10 @@ export function Wishes() {
               required
             />
           </label>
-          <button className="button" type="submit">
-            Send a blessing
+          <button className="button" type="submit" disabled={sending}>
+            {sending ? 'Sending' : 'Send a blessing'}
           </button>
+          {note ? <p className="wish-note">{note}</p> : null}
         </form>
         <aside className="wish-board" aria-label="Wishes for the couple">
           <h3 className="wish-board__title">

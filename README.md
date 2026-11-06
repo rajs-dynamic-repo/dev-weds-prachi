@@ -8,8 +8,9 @@ Edit [src/content/wedding.ts](src/content/wedding.ts). Names, the wedding date, 
 
 - `dateISO` drives the countdown and the scratch card. Keep the `+05:30` offset if the celebration is in India.
 - `instagram` is the handle without a full URL. Leave it empty until you have one.
+- `wishesUrl` is the Google Sheet guestbook. Leave it empty and each guest's wishes stay in their own browser. Paste the Apps Script URL from [scripts/guestbook.gs](scripts/guestbook.gs) to show the same wishes to every visitor.
 
-Wishes are saved in the guest's browser only. GitHub Pages has no database.
+Wishes are shared only after `wishesUrl` is set. Until then they stay in the guest's browser. GitHub Pages has no database of its own.
 
 ## Run it locally
 

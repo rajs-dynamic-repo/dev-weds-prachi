@@ -99,6 +99,13 @@ export const wedding = {
   ] satisfies Note[],
   instagram: '',
   hashtag: 'DevWedsPrachi',
+  /**
+   * Google Sheet guestbook. Paste the Apps Script web app URL that ends in /exec.
+   * Leave this empty and wishes stay in each guest's own browser.
+   * The script to deploy is scripts/guestbook.gs.
+   */
+  wishesUrl:
+    'https://script.google.com/macros/s/AKfycbyAJJTwfKd1BMZ00ixzf5XUC6d6vdl6YwkWHeoaCEi17SRLnCUsndF-8d49b3YFkljElQ/exec',
 }
 
 export function sideOf(value: Side) {
