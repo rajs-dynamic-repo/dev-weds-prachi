@@ -50,7 +50,7 @@ export function FamilyBlessings() {
   }, [])
 
   return (
-    <section className="band band--cream" id="family">
+    <>
       <SectionHeading title="Blessings from our families" />
       <div className="family" data-reveal="">
         <Mandala className="family__mandala" />
@@ -78,6 +78,6 @@ export function FamilyBlessings() {
           </a>
         </div>
       </div>
-    </section>
+    </>
   )
 }

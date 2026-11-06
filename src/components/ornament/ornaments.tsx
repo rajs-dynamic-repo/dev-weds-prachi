@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 type MarkTone = 'paper' | 'wine' | 'dark' | 'earth'
 
 const markTones: Record<MarkTone, { fill: string; stroke: string }> = {
@@ -64,8 +66,22 @@ export function FlowerMark({
 }
 
 export function Mandala({ className }: { className?: string }) {
+  const gloss = `mandala-gloss-${useId().replace(/:/g, '')}`
+  const sheen = `mandala-sheen-${useId().replace(/:/g, '')}`
   return (
     <svg className={className} viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <linearGradient id={gloss} x1="18%" y1="0%" x2="82%" y2="100%">
+          <stop offset="0%" stopColor="#FFF9EE" stopOpacity="0.95" />
+          <stop offset="38%" stopColor="#F0DDB4" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#C4A574" stopOpacity="0.12" />
+        </linearGradient>
+        <radialGradient id={sheen} cx="36%" cy="30%" r="58%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.72" />
+          <stop offset="42%" stopColor="#F8EED6" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#C4A574" stopOpacity="0" />
+        </radialGradient>
+      </defs>
       <circle cx="100" cy="100" r="96" fill="none" stroke="#C4A574" strokeWidth="0.7" />
       <circle cx="100" cy="100" r="78" fill="none" stroke="#C4A574" strokeWidth="0.5" />
       {Array.from({ length: 12 }, (_, index) => (
@@ -75,7 +91,7 @@ export function Mandala({ className }: { className?: string }) {
           cy="48"
           rx="11"
           ry="24"
-          fill="none"
+          fill={`url(#${gloss})`}
           stroke="#C4A574"
           strokeWidth="0.8"
           transform={`rotate(${index * 30} 100 100)`}
@@ -88,7 +104,7 @@ export function Mandala({ className }: { className?: string }) {
           cy="64"
           rx="7"
           ry="16"
-          fill="none"
+          fill={`url(#${gloss})`}
           stroke="#A68456"
           strokeWidth="0.7"
           transform={`rotate(${index * 45 + 18} 100 100)`}
@@ -96,6 +112,7 @@ export function Mandala({ className }: { className?: string }) {
       ))}
       <circle cx="100" cy="100" r="18" fill="none" stroke="#C4A574" strokeWidth="0.8" />
       <circle cx="100" cy="100" r="5" fill="#C4A574" />
+      <circle cx="82" cy="74" r="48" fill={`url(#${sheen})`} />
     </svg>
   )
 }

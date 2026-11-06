@@ -15,6 +15,19 @@ const BURST = [
   { x: 46, y: -18, r: 30, d: '35ms', c: '#C4A574', s: '10px', round: false },
 ]
 
+const INSIDE = [
+  { x: -22, y: -46, r: -28, d: '0ms', c: '#FBF6EE', s: '11px', round: false },
+  { x: -48, y: -34, r: 36, d: '30ms', c: '#6E2433', s: '10px', round: true },
+  { x: -58, y: -6, r: 16, d: '10ms', c: '#E4D0A8', s: '13px', round: false },
+  { x: -18, y: 32, r: -64, d: '60ms', c: '#C4A574', s: '9px', round: true },
+  { x: -44, y: 18, r: 48, d: '20ms', c: '#FBF6EE', s: '12px', round: false },
+  { x: -36, y: -58, r: -40, d: '40ms', c: '#6E2433', s: '10px', round: false },
+  { x: 10, y: -40, r: 18, d: '15ms', c: '#FBF6EE', s: '11px', round: true },
+  { x: 6, y: 24, r: -22, d: '45ms', c: '#E4D0A8', s: '14px', round: false },
+  { x: -8, y: 44, r: 60, d: '55ms', c: '#6E2433', s: '9px', round: true },
+  { x: 16, y: -12, r: 30, d: '35ms', c: '#C4A574', s: '10px', round: false },
+]
+
 function bitStyle(bit: (typeof BURST)[number]): CSSProperties {
   return {
     ['--x' as string]: `${bit.x}px`,
@@ -26,16 +39,17 @@ function bitStyle(bit: (typeof BURST)[number]): CSSProperties {
   }
 }
 
-export function PartyPoppers() {
+export function PartyPoppers({ contained = false }: { contained?: boolean }) {
+  const bits = contained ? INSIDE : BURST
   return (
-    <div className="poppers" aria-hidden="true">
+    <div className={contained ? 'poppers poppers--in' : 'poppers'} aria-hidden="true">
       <span className="popper popper--left">
-        {BURST.map((bit, index) => (
+        {bits.map((bit, index) => (
           <i key={index} className={bit.round ? 'popper__bit is-round' : 'popper__bit'} style={bitStyle(bit)} />
         ))}
       </span>
       <span className="popper popper--right">
-        {BURST.map((bit, index) => (
+        {bits.map((bit, index) => (
           <i key={index} className={bit.round ? 'popper__bit is-round' : 'popper__bit'} style={bitStyle(bit)} />
         ))}
       </span>

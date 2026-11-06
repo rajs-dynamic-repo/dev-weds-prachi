@@ -100,7 +100,7 @@ export function DateReveal() {
       total += 1
       if (data[index] < 28) clear += 1
     }
-    if (total > 0 && clear / total > 0.5) finish()
+    if (total > 0 && clear / total > 0.4) finish()
   }
 
   const erase = (event: ReactPointerEvent<HTMLCanvasElement>) => {
@@ -132,7 +132,7 @@ export function DateReveal() {
   }
 
   return (
-    <section className="band band--cream" id="date">
+    <div className="date-block" id="date">
       <SectionHeading eyebrow="Mark your calendar" title="A day to remember" />
       <div className="keepsake" data-reveal="">
         <p className="keepsake__label">
@@ -171,11 +171,11 @@ export function DateReveal() {
             }}
           />
         </div>
-        {done && !reduced ? <PartyPoppers /> : null}
+        {done && !reduced ? <PartyPoppers contained /> : null}
         </div>
         <p className="keepsake__foot">A little keepsake for you</p>
       </div>
-    </section>
+    </div>
   )
 }
 

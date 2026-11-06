@@ -60,9 +60,10 @@ export function Celebrations() {
                 href={wedding.venue.mapUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Open the map"
+                aria-label="Find Us here"
               >
                 <Pin size={26} />
+                <span>Find Us here</span>
               </a>
             ) : null}
           </article>

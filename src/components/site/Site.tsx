@@ -5,6 +5,7 @@ import { Celebrations } from '../celebrations/Celebrations'
 import { Countdown } from '../countdown/Countdown'
 import { DateReveal } from '../date/DateReveal'
 import { FamilyBlessings } from '../family/FamilyBlessings'
+import { FlowerShower } from '../family/FlowerShower'
 import { Footer } from '../footer/Footer'
 import { Hero } from '../hero/Hero'
 import { ThingsToKnow } from '../info/ThingsToKnow'
@@ -22,8 +23,11 @@ export function Site() {
         Skip to the families
       </a>
       <Hero reduced={reduced} />
-      <FamilyBlessings />
-      <DateReveal />
+      <section className="band band--cream" id="family">
+        <FlowerShower />
+        <FamilyBlessings />
+        <DateReveal />
+      </section>
       <Countdown />
       <Celebrations />
       <Wishes />
