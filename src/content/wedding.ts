@@ -48,7 +48,7 @@ export const wedding = {
   city: 'Kanpur',
   venue: {
     name: 'MVR Grand Hotel',
-    address: 'MVR Grand Hotel, Juhi Kalan, Saket Nagar, Kanpur',
+    address: 'Venue : MVR Grand Hotel, Juhi Kalan, Saket Nagar, Kanpur',
     mapUrl: 'https://maps.app.goo.gl/iPkiN8Xg1a4tAmi59',
   },
   invitation:
@@ -82,7 +82,7 @@ export const wedding = {
   notes: [
     {
       title: 'Attire',
-      text: 'Festive Indian Wear. Any best that suits your charming personality : )',
+      text: 'Any best that suits your charming personality : )',
     },
     {
       title: 'The hour',
