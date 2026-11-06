@@ -59,6 +59,7 @@ export function Wishes() {
     const nextName = name.trim().slice(0, 60)
     const nextMessage = message.trim().slice(0, 280)
     if (!nextName || !nextMessage || sending) return
+    if (!reduced) setBurst((count) => count + 1)
 
     if (!shared) {
       const next: Wish = {
@@ -72,7 +73,6 @@ export function Wishes() {
       saveWishes(updated)
       setName('')
       setMessage('')
-      setBurst((count) => count + 1)
       return
     }
 
@@ -83,7 +83,6 @@ export function Wishes() {
         setWishes((current) => [saved, ...current.filter((wish) => wish.id !== saved.id)].slice(0, 80))
         setName('')
         setMessage('')
-        setBurst((count) => count + 1)
       })
       .catch(() => {
         setNote('The blessing could not be sent. Please try again.')
@@ -103,7 +102,6 @@ export function Wishes() {
         }
       />
       <div className="wishes" data-reveal="">
-        {burst > 0 && !reduced ? <PartyPoppers key={burst} /> : null}
         <form className="wish-form" onSubmit={onSubmit}>
           <label className="field">
             <span>Your name</span>
@@ -127,9 +125,12 @@ export function Wishes() {
               required
             />
           </label>
-          <button className="button" type="submit" disabled={sending}>
-            {sending ? 'Sending' : 'Send a blessing'}
-          </button>
+          <span className="wish-send">
+            {burst > 0 && !reduced ? <PartyPoppers key={burst} button /> : null}
+            <button className="button" type="submit" disabled={sending}>
+              {sending ? 'Sending' : 'Send a blessing'}
+            </button>
+          </span>
           {note ? <p className="wish-note">{note}</p> : null}
         </form>
         <aside className="wish-board" aria-label="Wishes for the couple">

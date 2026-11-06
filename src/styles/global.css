@@ -679,6 +679,25 @@ button {
   right: 24%;
 }
 
+.wish-send {
+  position: relative;
+  display: inline-flex;
+}
+
+.poppers--button .popper--left,
+.poppers--button .popper--right {
+  left: 50%;
+  right: auto;
+}
+
+.poppers--button .popper--left {
+  transform: translate(-50%, -50%);
+}
+
+.poppers--button .popper--right {
+  transform: translate(-50%, -50%) scaleX(-1);
+}
+
 .popper__bit {
   position: absolute;
   left: 2px;
