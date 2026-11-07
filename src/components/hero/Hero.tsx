@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { wedding } from '../../content/wedding'
 import { gsap } from '../../lib/gsap'
-import { Jasmine, LeafSprig, Lotus, Mandala, Marigold, Rose } from '../ornament/ornaments'
+import { Jasmine, LeafSprig, Lotus, Marigold, Rose } from '../ornament/ornaments'
 
 const blooms = [
   { kind: 'marigold', size: 250, fx: -70, fy: -36, fr: -10, x: -700, y: -300, r: -28 },
@@ -121,8 +121,8 @@ export function Hero({ reduced }: { reduced: boolean }) {
         ))
       )}
       <div className="hero__stage">
-        {reduced ? <Mandala className="hero__mandala" /> : null}
         <h1 className="hero__names">
+          <img className="hero__ganesha" src="/ganesha.png" alt="" />
           <span>{wedding.groom.name}</span>
           <em>&</em>
           <span>{wedding.bride.name}</span>

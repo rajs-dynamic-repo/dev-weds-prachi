@@ -410,6 +410,13 @@ button {
   text-align: center;
 }
 
+.hero__ganesha {
+  display: block;
+  width: 128px;
+  height: auto;
+  margin-bottom: calc(20px - 0.06em);
+}
+
 .hero__names {
   display: flex;
   flex-direction: column;
