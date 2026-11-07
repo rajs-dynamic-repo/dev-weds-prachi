@@ -122,7 +122,7 @@ export function Hero({ reduced }: { reduced: boolean }) {
       )}
       <div className="hero__stage">
         <h1 className="hero__names">
-          <img className="hero__ganesha" src="/ganesha.png" alt="" />
+          <img className="hero__ganesha" src={`${import.meta.env.BASE_URL}ganesha.png`} alt="" />
           <span>{wedding.groom.name}</span>
           <em>&</em>
           <span>{wedding.bride.name}</span>
